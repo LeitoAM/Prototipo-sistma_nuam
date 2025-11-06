@@ -1,0 +1,74 @@
+
+MANUAL DE INSTALACIÓN Y ACCESO A BASE DE DATOS NUAM
+
+Este documento explica cómo levantar el proyecto NUAM y conectarse a la base de datos alojada en la instancia EC2.
+
+1) ARCHIVOS QUE SE DEBEN RECIBIR
+- Carpeta completa del proyecto 'sistema_nuam'
+- Archivo .env (muy importante) (en el rar ya viene este archivo)
+
+2) PROGRAMAS NECESARIOS
+- Python 3.10 a 3.12
+- Visual Studio Code
+
+3) ABRIR EL PROYECTO
+1. Descomprimir el archivo .zip o .rar
+2. Abrir Visual Studio Code
+3. Abrir el archivo que descomprimiste y arrastrarlo a el visual studio
+
+4) ACTIVAR ENTORNO VIRTUAL
+Terminal de visual studio code:
+    python -m venv .venv
+    .\.venv\Scripts\Activate.ps1
+
+Si aparece error de permisos:
+    Set-ExecutionPolicy RemoteSigned
+y volver a activar el entorno virtual:
+    .\.venv\Scripts\Activate.ps1
+
+5) INSTALAR DEPENDENCIAS
+    pip install -r requirements.txt
+
+6) CONFIGURACIÓN DEL ARCHIVO .env
+Este archivo ya viene configurado.
+No modificar valores de conexión.
+
+Debe verse así:
+
+PG_NAME=nuam_db
+PG_USER=nuam_user
+PG_PASSWORD=1234
+PG_HOST=<ec2-54-242-64-107.compute-1.amazonaws.com>
+PG_PORT=5432
+
+7) OBTENER IP PÚBLICA DEL EQUIPO
+Debes enviar tu ip publica al dueño de la base de datos para que pueda habilitar tu entrada:
+    https://www.whatismyip.com/ (en este link puedes saber tu ip publica)
+
+Ejemplo de IP:
+    186.11.92.34
+
+8) HABILITAR ESA IP EN AWS (LO HACE EL DUEÑO DEL SERVIDOR)
+En AWS EC2:
+
+9) HABILITAR ESA IP EN PostgreSQL(LO HACE EL DUEÑO DEL SERVIDOR) EN LA INSTANCIA
+En la EC2 (por SSH): 
+
+10) PROBAR CONEXIÓN (EN EL PC RECEPTOR)
+PowerShell:
+    Test-NetConnection 54.242.64.107 -Port 5432
+
+Si dice:
+    TcpTestSucceeded : True
+Significa que está permitido correctamente.
+
+11) LEVANTAR EL SERVIDOR DJANGO
+Dentro del entorno virtual:
+    python manage.py runserver
+
+Abrir en navegador:
+    http://127.0.0.1:8000/api/docs/ (ESTE ES PARA VERLO CON Swagger UI)
+
+PARA PODER ABRIR UNA VENTANA CON UN HTML SIMPLE DE ESTO DEBES IR AL SISTEMA_NUAM EN VS ENTRAS EN NUAM-FRONTEND LE DAS CLICK IZQUIERDO A INDEX.HTML Y LOS ABRES CON EL EXPLORADOR
+
+FIN ✅
